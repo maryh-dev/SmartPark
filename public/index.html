@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="SmartPark IoT - estacionamento inteligente">
+  <title>SmartPark IoT | Acesso</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+        integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="">
+</head>
+<body>
+  <div class="login-screen" id="login-screen">
+    <section class="login-card" aria-labelledby="login-title">
+      <a class="brand login-brand" href="#" aria-label="SmartPark, início">
+        <span class="brand-icon">P</span>
+        <span>Smart<span class="brand-accent">Park</span><small>IoT PARKING SYSTEM</small></span>
+      </a>
+
+      <p class="eyebrow">ESTACIONAMENTO INTELIGENTE</p>
+      <h1 id="login-title">Bem-vindo ao SmartPark</h1>
+      <p class="login-intro">Entre ou crie sua conta para continuar.</p>
+
+      <form class="login-form" id="login-form">
+        <div class="login-heading">
+          <strong>Entre na sua conta</strong>
+          <span>Use seu e-mail e sua senha cadastrados.</span>
+        </div>
+        <label for="login-email">E-mail</label>
+        <input class="login-input" id="login-email" name="email" type="email"
+               autocomplete="email" placeholder="voce@exemplo.com" required>
+        <div class="password-label">
+          <label for="login-password">Senha</label>
+          <button class="login-link" type="button" data-auth-view="recover">Esqueci minha senha</button>
+        </div>
+        <input class="login-input" id="login-password" name="password" type="password"
+               autocomplete="current-password" placeholder="Sua senha" required>
+        <p class="form-hint">
+          O SmartPark identifica automaticamente o tipo de conta após o login.
+        </p>
+        <button class="primary-button" type="submit">Entrar</button>
+        <p class="auth-switch">Ainda não tem conta?
+          <button class="login-link" type="button" data-auth-view="register">Criar conta</button>
+        </p>
+      </form>
+
+      <form class="login-form" id="customer-register" hidden>
+        <div class="login-heading">
+          <strong>Crie sua conta</strong>
+          <span>Preencha seus dados para acessar como cliente.</span>
+        </div>
+        <label for="register-name">Nome completo</label>
+        <input class="login-input" id="register-name" name="name" type="text"
+               autocomplete="name" maxlength="60" placeholder="Seu nome" required>
+        <label for="register-email">E-mail</label>
+        <input class="login-input" id="register-email" name="email" type="email"
+               autocomplete="email" placeholder="voce@exemplo.com" required>
+        <label for="register-password">Criar senha</label>
+        <input class="login-input" id="register-password" name="password" type="password"
+               autocomplete="new-password" minlength="8" placeholder="Pelo menos 8 caracteres" required>
+        <label for="register-password-confirm">Confirmar senha</label>
+        <input class="login-input" id="register-password-confirm" name="passwordConfirm" type="password"
+               autocomplete="new-password" minlength="8" placeholder="Digite a senha novamente" required>
+        <p class="form-hint">Sua conta de cliente será criada no servidor SmartPark.</p>
+        <button class="primary-button" type="submit">Criar minha conta</button>
+        <p class="auth-switch">Já tem conta?
+          <button class="login-link" type="button" data-auth-view="login">Voltar ao login</button>
+        </p>
+      </form>
+
+      <form class="login-form" id="customer-recovery" hidden>
+        <div class="login-heading">
+          <strong>Recuperar senha</strong>
+          <span>Informe o e-mail associado à sua conta.</span>
+        </div>
+        <label for="recovery-email">E-mail</label>
+        <input class="login-input" id="recovery-email" name="email" type="email"
+               autocomplete="email" placeholder="voce@exemplo.com" required>
+        <p class="form-hint">
+          O envio de instruções de recuperação será habilitado quando a API de e-mail estiver conectada.
+        </p>
+        <button class="primary-button" type="submit">Enviar instruções</button>
+        <p class="auth-switch">
+          <button class="login-link" type="button" data-auth-view="login">Voltar ao login</button>
+        </p>
+      </form>
+
+      <p class="login-message" id="login-message" role="status" aria-live="polite"></p>
+      <p class="demo-notice" id="login-notice">
+        Clientes e administradores usam o mesmo formulário de acesso.
+      </p>
+    </section>
+  </div>
+
+  <div id="app-shell" hidden>
+    <aside class="sidebar">
+      <a class="brand" href="#visao-geral" data-view-link="visao-geral">
+        <span class="brand-icon">P</span>
+        <span>Smart<span class="brand-accent">Park</span><small>IoT PARKING SYSTEM</small></span>
+      </a>
+
+      <nav class="navigation" aria-label="Navegação principal">
+        <a class="nav-link active" href="#visao-geral" data-view-link="visao-geral"><span>▦</span> Visão geral</a>
+        <a class="nav-link" href="#encontrar" data-view-link="encontrar"><span>⌖</span> Encontrar vaga</a>
+        <a class="nav-link" href="#reservar" data-view-link="reservar"><span>＋</span> Pré-reservar</a>
+        <a class="nav-link" href="#reservas" data-view-link="reservas"><span>▤</span> Minhas reservas</a>
+        <a class="nav-link admin-nav-link" href="#administracao" data-view-link="administracao" hidden>
+          <span>⚙</span> Administração
+        </a>
+      </nav>
+
+      <div class="sidebar-bottom">
+        <div class="connection"><span class="status-dot"></span> API SmartPark</div>
+        <small>SMARTPARK IoT · VERSÃO 1.0</small>
+      </div>
+    </aside>
+
+    <main class="main-content">
+      <header class="topbar">
+        <div>
+          <p class="eyebrow">SMARTPARK IoT</p>
+          <h1>Visão geral</h1>
+        </div>
+        <div class="topbar-actions">
+          <div class="user-area">
+            <div class="avatar" id="user-avatar">CL</div>
+            <div><strong id="user-name">Cliente</strong><small id="user-role">Cliente</small></div>
+          </div>
+          <button class="text-button" id="logout-button" type="button">Sair</button>
+        </div>
+      </header>
+      <p class="dashboard-message" id="dashboard-message" role="status" aria-live="polite" hidden></p>
+
+      <section class="dashboard-view overview-view" id="visao-geral" data-view="visao-geral">
+      <section class="welcome">
+        <div>
+          <p class="eyebrow light">SMARTPARK IoT</p>
+          <h2>Encontre sua vaga.<br>Chegue sem preocupações.</h2>
+          <p>Consulte locais, veja a disponibilidade e solicite uma pré-reserva.</p>
+        </div>
+        <div class="welcome-mark" aria-hidden="true">P</div>
+      </section>
+
+      <section class="stats-grid" aria-label="Resumo dos estacionamentos">
+        <article class="stat-card">
+          <span class="stat-icon blue">⌖</span>
+          <div><p>Estacionamentos</p><strong id="total-lots">2</strong></div>
+        </article>
+        <article class="stat-card">
+          <span class="stat-icon green">✓</span>
+          <div><p>Vagas disponíveis</p><strong id="available-spaces">18</strong></div>
+        </article>
+        <article class="stat-card">
+          <span class="stat-icon orange">▣</span>
+          <div><p>Vagas ocupadas</p><strong id="occupied-spaces">12</strong></div>
+        </article>
+      </section>
+      <section class="overview-grid">
+        <article class="panel overview-card">
+          <p class="eyebrow">COMECE POR AQUI</p>
+          <h2>O que você quer fazer?</h2>
+          <p>Consulte os locais no mapa e confira disponibilidade e tarifas cadastradas.</p>
+          <a class="primary-button action-link" href="#encontrar" data-view-link="encontrar">Encontrar uma vaga</a>
+        </article>
+        <article class="panel overview-card">
+          <p class="eyebrow">COMO FUNCIONA</p>
+          <h2>Reserve em poucos passos</h2>
+          <ol class="steps-list">
+            <li>Escolha um estacionamento e consulte as vagas.</li>
+            <li>Informe a previsão de entrada e saída.</li>
+            <li>Revise a estimativa e acompanhe sua pré-reserva.</li>
+          </ol>
+          <p class="form-hint">A pré-reserva é registrada no servidor e paga pelo Checkout Pro do Mercado Pago.</p>
+        </article>
+      </section>
+      </section>
+
+      <section class="dashboard-view" id="encontrar" data-view="encontrar" hidden>
+      <div class="content-grid">
+        <div class="panel map-panel">
+          <div class="panel-heading">
+            <div><p class="eyebrow">LOCALIZAÇÃO</p><h2>Encontre um estacionamento</h2></div>
+            <span class="live-label"><span class="status-dot"></span> Dados do Firestore</span>
+          </div>
+          <div id="map" aria-label="Mapa com estacionamentos disponíveis"></div>
+          <p class="map-note" id="map-status" role="status" aria-live="polite">
+            Carregando mapa e disponibilidade dos estacionamentos.
+          </p>
+        </div>
+
+        <div class="panel parking-panel">
+          <div class="panel-heading">
+            <div><p class="eyebrow">OPÇÕES PRÓXIMAS</p><h2>Estacionamentos</h2></div>
+          </div>
+          <label class="search-label" for="parking-search">Filtrar por local</label>
+          <input id="parking-search" class="text-input" type="search"
+                 placeholder="Nome ou endereço" autocomplete="off">
+          <div id="parking-list" class="parking-list"></div>
+        </div>
+      </section>
+
+      <section class="panel details-panel" id="parking-details">
+        <div class="panel-heading">
+          <div>
+            <p class="eyebrow">DETALHES E PRÉ-RESERVA</p>
+            <h2 id="selected-title">Selecione um estacionamento</h2>
+          </div>
+          <span class="availability-badge" id="selected-status">Aguardando seleção</span>
+        </div>
+        <div id="selected-details" class="empty-state">
+          Escolha um estacionamento no mapa ou na lista para consultar vagas e tarifas.
+        </div>
+        <button class="primary-button continue-button" id="continue-to-reservation" type="button" disabled>
+          Continuar para pré-reserva
+        </button>
+      </section>
+      </section>
+
+      <section class="dashboard-view reservation-view" id="reservar" data-view="reservar" hidden>
+        <section class="reservation-page-intro">
+          <p class="eyebrow light">PRÓXIMA ETAPA</p>
+          <h2>Pré-reservar uma vaga</h2>
+          <p>Escolha o período e confira a estimativa antes de registrar sua solicitação.</p>
+        </section>
+        <section class="panel reservation-panel">
+          <div class="panel-heading">
+            <div><p class="eyebrow">ESTACIONAMENTO SELECIONADO</p><h2 id="reservation-parking-name">Nenhum estacionamento selecionado</h2></div>
+            <span class="availability-badge" id="reservation-parking-status">Selecione um local</span>
+          </div>
+          <p class="reservation-parking-address" id="reservation-parking-address">
+            Volte a “Encontrar vaga” para escolher um estacionamento.
+          </p>
+          <form class="reservation-form" id="reservation-form">
+            <div class="reservation-fields">
+              <div class="field-group">
+                <label for="reservation-start">Entrada prevista</label>
+                <input class="text-input" id="reservation-start" name="start"
+                       type="datetime-local" step="900" required disabled>
+              </div>
+              <div class="field-group">
+                <label for="reservation-end">Saída prevista</label>
+                <input class="text-input" id="reservation-end" name="end"
+                       type="datetime-local" step="900" required disabled>
+              </div>
+            </div>
+            <div class="reservation-summary">
+              <div>
+                <span>Estimativa de tarifa</span>
+                <strong class="estimate" id="reservation-estimate">Selecione um estacionamento.</strong>
+              </div>
+              <span class="estimate-note">A estimativa final depende da validação do servidor.</span>
+            </div>
+            <button class="primary-button reservation-submit" id="reserve-button" type="submit" disabled>
+              Registrar pré-reserva
+            </button>
+            <p class="form-message" id="reservation-message" role="status" aria-live="polite"></p>
+            <p class="form-hint">
+              A pré-reserva fica aguardando pagamento por 15 minutos. A cancela só libera a entrada após o servidor verificar o pagamento.
+            </p>
+          </form>
+        </section>
+        <a class="secondary-link" href="#encontrar" data-view-link="encontrar">← Voltar aos estacionamentos</a>
+      </section>
+
+      <section class="dashboard-view reservations-view" id="reservas" data-view="reservas" hidden>
+        <section class="reservation-page-intro">
+          <p class="eyebrow light">ACOMPANHAMENTO</p>
+          <h2>Minhas reservas</h2>
+          <p>Acompanhe os horários, valores estimados e situação das solicitações da sua conta.</p>
+        </section>
+        <div class="reservation-legend">
+          <span class="reservation-status">Aguardando pagamento · não confirmada</span>
+          <span class="form-hint">O histórico é carregado da sua conta no Firestore.</span>
+        </div>
+        <section class="panel reservations-panel">
+        <div class="panel-heading">
+          <div>
+            <p class="eyebrow">SUAS SOLICITAÇÕES</p>
+            <h2>Histórico de reservas</h2>
+          </div>
+          <a class="text-button" href="#encontrar" data-view-link="encontrar">Encontrar outra vaga</a>
+        </div>
+        <div class="reservation-list empty-state" id="reservation-list">
+          Suas pré-reservas desta sessão aparecerão aqui.
+        </div>
+        </section>
+      </section>
+
+      <section class="dashboard-view" id="administracao" data-view="administracao" hidden>
+      <section class="panel admin-panel">
+        <div class="panel-heading">
+          <div>
+            <p class="eyebrow">ACESSO RESTRITO</p>
+            <h2>Visão administrativa</h2>
+          </div>
+          <span class="availability-badge">Administrador autenticado</span>
+        </div>
+        <div class="admin-summary" id="admin-summary"></div>
+        <div id="admin-details" class="admin-details"></div>
+        <p class="form-hint">
+          Os indicadores são carregados pela API e atualizados a cada acesso à tela.
+        </p>
+      </section>
+      </section>
+
+      <footer>SmartPark IoT · Protótipo educacional · Pagamento em ambiente de teste · Cancela simulada no Wokwi.</footer>
+    </main>
+  </div>
+
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+          integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+  <script src="script.js"></script>
+</body>
+</html>

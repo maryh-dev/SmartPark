@@ -1,0 +1,7 @@
+backend/venv/
+**/.env
+**/service-account.json
+**/firebase-adminsdk-*.json
+**/__pycache__/
+*.py[cod]
+*.pdf

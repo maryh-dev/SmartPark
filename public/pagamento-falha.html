@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SmartPark IoT | Pagamento não concluído</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="login-screen">
+    <section class="login-card" aria-live="polite">
+      <a class="brand login-brand" href="/"><span class="brand-icon">P</span>
+        <span>Smart<span class="brand-accent">Park</span><small>IoT PARKING SYSTEM</small></span></a>
+      <h1 id="payment-title">Pagamento não concluído</h1>
+      <p class="login-intro" id="payment-text">O pagamento não foi aprovado. A reserva continua pendente até expirar; você pode tentar de novo.</p>
+      <p class="login-message" id="payment-status" role="status"></p>
+      <a class="primary-button action-link" href="/#reservas">Ver minhas reservas</a>
+      <p class="form-hint">A confirmação só vale depois que o servidor verifica o pagamento no Mercado Pago.</p>
+    </section>
+  </div>
+  <script src="pagamento.js" data-result="falha"></script>
+</body>
+</html>

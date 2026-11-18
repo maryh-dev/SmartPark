@@ -1,0 +1,327 @@
+{
+  "version": 1,
+  "author": "SmartPark IoT",
+  "editor": "wokwi",
+  "parts": [
+    {
+      "type": "board-esp32-devkit-v1",
+      "id": "esp",
+      "top": 0,
+      "left": 0,
+      "attrs": {}
+    },
+    {
+      "type": "wokwi-hc-sr04",
+      "id": "entrada",
+      "top": -170,
+      "left": -250,
+      "attrs": {}
+    },
+    {
+      "type": "wokwi-hc-sr04",
+      "id": "saida",
+      "top": 150,
+      "left": -250,
+      "attrs": {}
+    },
+    {
+      "type": "wokwi-servo",
+      "id": "servo",
+      "top": -150,
+      "left": 300,
+      "attrs": {}
+    },
+    {
+      "type": "wokwi-lcd1602",
+      "id": "lcd",
+      "top": 250,
+      "left": 250,
+      "attrs": {
+        "pins": "i2c"
+      }
+    },
+    {
+      "type": "wokwi-led",
+      "id": "ledVerde",
+      "top": -100,
+      "left": 500,
+      "attrs": {
+        "color": "green"
+      }
+    },
+    {
+      "type": "wokwi-led",
+      "id": "ledVermelho",
+      "top": 0,
+      "left": 500,
+      "attrs": {
+        "color": "red"
+      }
+    },
+    {
+      "type": "wokwi-led",
+      "id": "ledAmarelo",
+      "top": 100,
+      "left": 500,
+      "attrs": {
+        "color": "yellow"
+      }
+    },
+    {
+      "type": "wokwi-pushbutton",
+      "id": "botaoEntrada",
+      "top": 350,
+      "left": -150,
+      "attrs": {
+        "color": "green",
+        "label": "TESTE ENTRADA"
+      }
+    },
+    {
+      "type": "wokwi-pushbutton",
+      "id": "botaoManutencao",
+      "top": 350,
+      "left": 0,
+      "attrs": {
+        "color": "red",
+        "label": "MANUTENCAO"
+      }
+    },
+    {
+      "type": "wokwi-resistor",
+      "id": "r1",
+      "top": -170,
+      "left": -100,
+      "attrs": {
+        "value": "1k"
+      }
+    },
+    {
+      "type": "wokwi-resistor",
+      "id": "r2",
+      "top": -120,
+      "left": -100,
+      "attrs": {
+        "value": "2k"
+      }
+    },
+    {
+      "type": "wokwi-resistor",
+      "id": "r3",
+      "top": 150,
+      "left": -100,
+      "attrs": {
+        "value": "1k"
+      }
+    },
+    {
+      "type": "wokwi-resistor",
+      "id": "r4",
+      "top": 200,
+      "left": -100,
+      "attrs": {
+        "value": "2k"
+      }
+    },
+    {
+      "type": "wokwi-resistor",
+      "id": "r5",
+      "top": -100,
+      "left": 400,
+      "attrs": {
+        "value": "220"
+      }
+    },
+    {
+      "type": "wokwi-resistor",
+      "id": "r6",
+      "top": 0,
+      "left": 400,
+      "attrs": {
+        "value": "220"
+      }
+    },
+    {
+      "type": "wokwi-resistor",
+      "id": "r7",
+      "top": 100,
+      "left": 400,
+      "attrs": {
+        "value": "220"
+      }
+    }
+  ],
+  "connections": [
+    [
+      "entrada:VCC",
+      "esp:VIN",
+      "red"
+    ],
+    [
+      "entrada:GND",
+      "esp:GND.1",
+      "black"
+    ],
+    [
+      "entrada:TRIG",
+      "esp:5",
+      "green"
+    ],
+    [
+      "entrada:ECHO",
+      "r1:1",
+      "green"
+    ],
+    [
+      "r1:2",
+      "esp:34",
+      "green"
+    ],
+    [
+      "r1:2",
+      "r2:1",
+      "green"
+    ],
+    [
+      "r2:2",
+      "esp:GND.1",
+      "black"
+    ],
+    [
+      "saida:VCC",
+      "esp:VIN",
+      "red"
+    ],
+    [
+      "saida:GND",
+      "esp:GND.1",
+      "black"
+    ],
+    [
+      "saida:TRIG",
+      "esp:17",
+      "blue"
+    ],
+    [
+      "saida:ECHO",
+      "r3:1",
+      "blue"
+    ],
+    [
+      "r3:2",
+      "esp:35",
+      "blue"
+    ],
+    [
+      "r3:2",
+      "r4:1",
+      "blue"
+    ],
+    [
+      "r4:2",
+      "esp:GND.1",
+      "black"
+    ],
+    [
+      "servo:V+",
+      "esp:VIN",
+      "red"
+    ],
+    [
+      "servo:GND",
+      "esp:GND.1",
+      "black"
+    ],
+    [
+      "servo:PWM",
+      "esp:13",
+      "orange"
+    ],
+    [
+      "lcd:VCC",
+      "esp:3V3",
+      "red"
+    ],
+    [
+      "lcd:GND",
+      "esp:GND.1",
+      "black"
+    ],
+    [
+      "lcd:SDA",
+      "esp:21",
+      "green"
+    ],
+    [
+      "lcd:SCL",
+      "esp:22",
+      "blue"
+    ],
+    [
+      "esp:25",
+      "r5:1",
+      "green"
+    ],
+    [
+      "r5:2",
+      "ledVerde:A",
+      "green"
+    ],
+    [
+      "ledVerde:C",
+      "esp:GND.1",
+      "black"
+    ],
+    [
+      "esp:26",
+      "r6:1",
+      "red"
+    ],
+    [
+      "r6:2",
+      "ledVermelho:A",
+      "red"
+    ],
+    [
+      "ledVermelho:C",
+      "esp:GND.1",
+      "black"
+    ],
+    [
+      "esp:27",
+      "r7:1",
+      "orange"
+    ],
+    [
+      "r7:2",
+      "ledAmarelo:A",
+      "orange"
+    ],
+    [
+      "ledAmarelo:C",
+      "esp:GND.1",
+      "black"
+    ],
+    [
+      "botaoEntrada:1.l",
+      "esp:32",
+      "green"
+    ],
+    [
+      "botaoEntrada:2.l",
+      "esp:GND.1",
+      "black"
+    ],
+    [
+      "botaoManutencao:1.l",
+      "esp:33",
+      "red"
+    ],
+    [
+      "botaoManutencao:2.l",
+      "esp:GND.1",
+      "black"
+    ]
+  ],
+  "dependencies": {}
+}
