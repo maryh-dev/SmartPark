@@ -1,2 +1,13 @@
+[project]
+name = "smartpark"
+version = "0.1.0"
+requires-python = ">=3.13,<3.14"
+dependencies = [
+    "Flask>=3.0,<4.0",
+    "firebase-admin>=6.5,<8.0",
+    "python-dotenv>=1.0,<2.0",
+    "requests>=2.31,<3.0",
+]
+
 [tool.vercel]
 entrypoint = "backend.app:app"
