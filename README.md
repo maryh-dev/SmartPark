@@ -107,11 +107,9 @@ A simulação foi desenvolvida no Wokwi.
 ### 1. Clonar o repositório
 
 ```bash
-git clone URL_DO_REPOSITORIO
+git clone https://github.com/maryh-dev/SmartPark.git
 cd SmartPark
 ```
-
-Substitua `URL_DO_REPOSITORIO` pelo endereço real do repositório.
 
 ### 2. Configurar o backend
 
